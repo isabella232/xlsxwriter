@@ -192,14 +192,18 @@ end
 -- Set the locked property.
 --
 function Format:set_locked(value)
-  self.locked = value ~= nil and value or true
+  self.locked = value
 end
 
 ----
 -- Set the hidden property.
 --
-function Format:set_hidden()
-  self.hidden = true
+function Format:set_hidden(value)
+  if value == nil then
+    self.hidden = true
+  else
+    self.hidden = value
+  end
 end
 
 ----
@@ -710,7 +714,7 @@ end
 function Format:_get_protection_properties()
   local attribs = {}
 
-  if not self.locked then
+  if self.locked ~= true and self.locked ~= 1 then
     table.insert(attribs, {["locked"] = "0"})
   end
 
